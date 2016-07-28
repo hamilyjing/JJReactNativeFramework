@@ -1,0 +1,33 @@
+{
+  "author": "li.xx",
+  "dependencies": {
+    "@remobile/react-native-toast": "^1.0.4",
+    "babel-eslint": "^6.0.4",
+    "md5": "^2.1.0",
+    "react": "^0.14.7",
+    "react-native": "0.25.1",
+    "react-native-cache-store": "^1.0.2",
+    "react-native-progress": "^3.0.0",
+    "react-native-scrollable-tab-view": "^0.4.4",
+    "react-native-swiper": "^1.4.3",
+    "react-redux": "3.1.2",
+    "redux": "^3.3.1",
+    "redux-thunk": "^1.0.3",
+    "yzt-react-base": "*",
+    "yzt-react-bus": "*"
+  },
+  "description": "金融旗舰店采用React Native实现",
+  "devDependencies": {
+    "eslint": "*",
+    "eslint-config-airbnb": "^9.0.0",
+    "eslint-plugin-react": "^5.1.0",
+    "redux-logger": "^2.6.1"
+  },
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "clean": "cd node_modules; find . -name .babelrc | grep -v packager | xargs rm",
+    "start": "node_modules/react-native/packager/packager.sh"
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,23 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '8.0'
+# Uncomment this line if you're using Swift
+# use_frameworks!
+
+target 'test' do
+
+# 取决于你的工程如何组织，你的node_modules文件夹可能会在别的地方。
+# 请将:path后面的内容修改为正确的路径。
+pod 'React', :path => '/Users/JJ/Desktop/JJ/Github/JJReactNativeFramework/node_modules/react-native', :subspecs => [  
+  'Core',
+  'RCTNetwork',
+  'RCTText',
+  'RCTWebSocket',
+  'RCTActionSheet',
+  'RCTGeolocation',
+  'RCTImage',
+  'RCTLinkingIOS',
+  'RCTSettings',
+  'RCTVibration'
+]
+
+end
