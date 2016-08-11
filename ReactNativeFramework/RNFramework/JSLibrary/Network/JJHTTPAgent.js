@@ -3,7 +3,7 @@
  */
 
 import JJHTTPRequest, {JJ_REQUEST_METHOD_TYPE_GET, JJ_REQUEST_METHOD_TYPE_POST} from './JJHTTPRequest';
-import {jj_httpPost, jj_httpGet, jj_toQueryString} from './JJHTTPTool';
+import JJHTTPTool from './JJHTTPTool';
 
 let instance;
 
@@ -27,27 +27,22 @@ class JJHTTPAgent
 
         if (JJ_REQUEST_METHOD_TYPE_POST === request.getRequestMethodType())
         {
-            jj_httpPost(url, parameter)
+            JJHTTPTool.post(url, parameter)
                 .then((responseString) =>
                 {
-                    console.log('7777777&&&&&&&&&&&&&&&')
-
                     this.handleNetworkSuccessRequestResult(request, responseString);
                 }, ((error) =>
                 {
-                    console.log('88888888&&&&&&&&&&&&&&&', error)
-
                     this.handleNetworkFailRequestResult(request, error);
                 }))
                 .catch((error) =>
                 {
-                    console.log('999999&&&&&&&&&&&&&&&', error)
                     this.handleNetworkFailRequestResult(request, error);
                 });
         }
         else if (JJ_REQUEST_METHOD_TYPE_GET === request.getRequestMethodType())
         {
-            jj_httpGet(url, parameter)
+            JJHTTPTool.get(url, parameter)
                 .then((responseString) =>
                 {
                     this.handleNetworkSuccessRequestResult(request, responseString);

@@ -4,17 +4,22 @@
 
 import CacheStore from 'react-native-cache-store';
 
-export function jj_obtainFileCache(key)
+class JJFileCache
 {
-    return CacheStore.get(key);
+    static get(key)
+    {
+        return CacheStore.get(key)
+    }
+
+    static set(key, value, time)
+    {
+        return CacheStore.set(key, value, time)
+    }
+
+    static remove(key)
+    {
+        return CacheStore.remove(key);
+    }
 }
 
-export function jj_saveFileCache(key, value, time)
-{
-    return CacheStore.set(key, value, time);
-}
-
-export function jj_removeFileCache(key)
-{
-    return CacheStore.remove(key);
-}
+export default JJFileCache

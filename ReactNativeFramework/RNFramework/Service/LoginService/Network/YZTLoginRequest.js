@@ -1,17 +1,17 @@
 /**
- * Created by JJ on 16/7/20.
+ * Created by JJ on 16/8/1.
  */
 
 import YZTGPRequest from '../../Tool/YZTGPRequest';
 
-class YZTBaoRequest extends YZTGPRequest
+class YZTLoginRequest extends YZTGPRequest
 {
     constructor(operationType, parameters, isSaveToDisk)
     {
         super(operationType, parameters, isSaveToDisk)
 
-        this.serviceName = 'YZTBaoService'
+        this.serviceName = 'YZTLoginService'
     }
 }
 
-export default YZTBaoRequest;
+export default YZTLoginRequest;

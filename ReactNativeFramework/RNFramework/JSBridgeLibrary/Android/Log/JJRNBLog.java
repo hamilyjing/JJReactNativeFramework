@@ -5,12 +5,12 @@ package com.Android;
  */
 
 public class JJRNBLog {
-    public JJRNBLogModule(ReactApplicationContext reactContext) {
+    public JJRNBLog(ReactApplicationContext reactContext) {
         super(reactContext);
     }
 
     @ReactMethod
-    public void jjLogFromJS(String message){
+    public void debug(String message){
         Log.d(message);
     }
 }

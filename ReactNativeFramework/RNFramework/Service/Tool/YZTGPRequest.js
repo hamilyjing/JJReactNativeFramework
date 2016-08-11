@@ -5,11 +5,14 @@
 import JJHTTPRequest from '../../JSLibrary/Network/JJHTTPRequest';
 import YztFn from '../../../yzt-react-base/yzt/p.yzt.base.js'
 import md5 from 'md5';
+import YZTLoginService from '../LoginService/YZTLoginService'
 
 const Yzt = new YztFn();
 let PLIST_PARAMS = Yzt.getPlist();
 
 const YZT_ALL_ACCOUNT_CACHE_KEY = 'AllAccount';
+
+let g_lastResultStatus = 0
 
 class YZTGPRequest extends JJHTTPRequest
 {
@@ -89,11 +92,39 @@ class YZTGPRequest extends JJHTTPRequest
         return key;
     }
 
+    requestCompleteFilter(response)
+    {
+        this._processAbnormalStatus(response)
+
+        return super.requestCompleteFilter(response)
+    }
+
     // private
 
     _commonParameter()
     {
         return Yzt.getGPParams();
+    }
+
+    _processAbnormalStatus(response)
+    {
+        let resultStatus = response.resultStatus
+
+        if (resultStatus < 9000)
+        {
+            g_lastResultStatus = resultStatus
+            return
+        }
+
+        if (g_lastResultStatus >= 9000)
+        {
+            g_lastResultStatus = resultStatus
+            return
+        }
+
+        g_lastResultStatus = resultStatus
+
+        YZTLoginService.sharedInstance().serverForceLogout(resultStatus)
     }
 }
 

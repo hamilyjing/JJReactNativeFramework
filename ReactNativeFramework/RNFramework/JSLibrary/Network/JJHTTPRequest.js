@@ -2,9 +2,8 @@
  * Created by JJ on 16/7/20.
  */
 
-import {jj_httpPost, jj_httpGet, jj_toQueryString} from './JJHTTPTool';
 import JJHTTPAgent from './JJHTTPAgent';
-import {jj_obtainFileCache, jj_saveFileCache, jj_removeFileCache} from '../Storage/JJFileCache';
+import JJFileCache from '../Storage/JJFileCache';
 
 export const JJ_REQUEST_METHOD_TYPE_GET = 'get';
 export const JJ_REQUEST_METHOD_TYPE_POST = 'post';
@@ -68,49 +67,6 @@ class JJHTTPRequest
         this.networkFailCallBack = networkFailCallBack;
 
         return JJHTTPAgent.sharedInstance().start(this);
-
-        /*
-        const url = this.buildRequestUrl();
-        const parameter = this.getRequestArgument();
-
-        if (JJ_REQUEST_METHOD_TYPE_POST === this.getRequestMethodType())
-        {
-            jj_httpPost(url, parameter)
-                .then((response) =>
-                {
-                    var filterResponse = this.filterResponse(response);
-                    const value = this.requestCompleteFilter(filterResponse);
-                    networkSuccessCallBack(this.successForBusiness(filterResponse), value, this.getOtherInfo());
-                })
-                .catch((error) =>
-                {
-                    const value = this.requestFailedFilter(error);
-                    networkFailCallBack(false, value, this.getOtherInfo());
-                });
-        }
-        else if (JJ_REQUEST_METHOD_TYPE_GET === this.getRequestMethodType())
-        {
-            jj_httpGet(url, parameter)
-                .then((response) =>
-                {
-                    var filterResponse = this.filterResponse(response);
-                    const value = this.requestCompleteFilter(filterResponse);
-                    networkSuccessCallBack(this.successForBusiness(filterResponse), value, this.getOtherInfo());
-                })
-                .catch((error) =>
-                {
-                    const value = this.requestFailedFilter(error);
-                    networkFailCallBack(false, value, this.getOtherInfo());
-                });
-        }
-        else
-        {
-            networkSuccessCallBack(null, this.getOtherInfo());
-            return false;
-        }
-
-        return true;
-        */
     }
 
     stop()
@@ -194,17 +150,17 @@ class JJHTTPRequest
 
     obtainCache()
     {
-        return jj_obtainFileCache(this.getCacheKey());
+        return JJFileCache.get(this.getCacheKey());
     }
 
     saveObjectToCache(obj)
     {
-        return jj_saveFileCache(this.getCacheKey(), obj);
+        return JJFileCache.set(this.getCacheKey(), obj);
     }
 
     removeCache()
     {
-        return jj_removeFileCache(this.getCacheKey());
+        return JJFileCache.remove(this.getCacheKey());
     }
 }
 
