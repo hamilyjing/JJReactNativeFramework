@@ -71,3 +71,9 @@
 4. 开发工具
 
 	WebStorm或者Atom。
+	
+5. 工程目录结构
+
+	目录结构见如下图：
+
+	![image](https://mmbiz.qlogo.cn/mmbiz/YTAjOycganNrN6aCjBzVhiajhxbldlXOqkEiaCXEmjKapcaFTsphduFbUCBymxYqLIB1hWu3SlUnNSlpp44h3uBw/0?wx_fmt=png)
