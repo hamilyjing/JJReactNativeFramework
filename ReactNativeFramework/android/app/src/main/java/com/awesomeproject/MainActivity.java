@@ -2,6 +2,7 @@ package com.awesomeproject;
 
 import android.widget.Toast;
 
+import com.awesomeproject.JSBridgeLibrary.Android.Log.JJRNBLog;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.Callback;
@@ -18,30 +19,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-class AA extends ReactContextBaseJavaModule
-{
-    public AA(ReactApplicationContext reactContext)
-    {
-        super(reactContext);
-    }
-
-    @Override
-    public String getName() {
-        return "AA";
-    }
-
-    @ReactMethod
-    public void show()
-    {
-        Toast.makeText(getReactApplicationContext(), "1234", Toast.LENGTH_LONG).show();
-    }
-
-    @ReactMethod void callBack(Callback callback)
-    {
-        callback.invoke("1234");
-    }
-}
-
 class AnExampleReactPackage implements ReactPackage
 {
     @Override
@@ -57,7 +34,7 @@ class AnExampleReactPackage implements ReactPackage
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new AA(reactContext));
+        modules.add(new JJRNBLog(reactContext));
         return modules;
     }
 }
