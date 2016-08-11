@@ -3,7 +3,7 @@
  */
 
 import JJHTTPAgent from './JJHTTPAgent';
-import Store from '../Store/p.store';
+import Store from '../Storage/JJFileCache';
 
 const { Cache } = Store;
 
