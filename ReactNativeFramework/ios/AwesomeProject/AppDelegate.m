@@ -17,10 +17,18 @@
 
 @end
 
+AwesomeProject1 *ap1 = nil;
+
 @implementation AwesomeProject1
+
+- (void)dealloc
+{
+  NSLog(@"dealloc");
+}
 
 - (instancetype)init
 {
+  NSLog(@"init");
   self = [super init];
   return self;
 }
@@ -32,13 +40,17 @@ RCT_EXPORT_METHOD(processString:(NSString *)input callback:(RCTResponseSenderBlo
   callback(@[@"Hello"]);
 }
 
+- (NSDictionary *)constantsToExport
+{
+  return @{ @"aaa": @"Monday" };
+}
+
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    /*
   Class moduleClass = [AwesomeProject1 class];
   unsigned int count;
   Method *methods = class_copyMethodList(object_getClass(moduleClass), &count);
@@ -57,7 +69,6 @@ RCT_EXPORT_METHOD(processString:(NSString *)input callback:(RCTResponseSenderBlo
     
     //NSLog(@"Test '%@' completed successfuly", [name substringFromIndex:4]);
   }
-     */
   
   NSURL *jsCodeLocation;
 
@@ -91,11 +102,14 @@ RCT_EXPORT_METHOD(processString:(NSString *)input callback:(RCTResponseSenderBlo
                                                       moduleName:@"AwesomeProject"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
+  rootView.appProperties = @{@"aa": @"aa"};
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
+  UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:[UIViewController new]];
+  [nv pushViewController:rootViewController animated:NO];
+  self.window.rootViewController = nv;
   [self.window makeKeyAndVisible];
   return YES;
 }

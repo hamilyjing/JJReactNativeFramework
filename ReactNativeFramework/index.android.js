@@ -13,6 +13,8 @@ import React, {
   NativeModules
 } from 'react-native';
 
+import Log from './Log'
+
 var obj = NativeModules.AA
 
 class AwesomeProject extends Component {
@@ -62,14 +64,15 @@ class AwesomeProject extends Component {
 
   onPress()
   {
+    Log.log()
     //alert('123456');
-	//obj.callBack('123', null); // callback 不能为null
-    obj.callBack('123', (text) => {
-      alert(text);
-    });
+	//obj.processString('123', null); // callback 不能为null
     // obj.processString('123', (text) => {
-//       alert(text);
-//     });
+    //   alert(text);
+    // });
+    // obj.processString('123', (text) => {
+    //   alert(text);
+    // });
   }
 }
 
