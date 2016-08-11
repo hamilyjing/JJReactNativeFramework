@@ -13,6 +13,8 @@ export function weatherTestAction(type, obj)
     }
 }
 
+let counter = 1;
+
 export function requestWeather()
 {
     return (dispatch) =>
@@ -21,8 +23,8 @@ export function requestWeather()
         {
             if (businessSuccess)
             {
-                dispatch(weatherTestAction(WeatherTestConstants.generateActionType(otherInfo.operationType), {accountDetail: response.result.accountDetail,
-                    fundIncomeDetail: response.result.fundIncomeDetail}));
+                dispatch(weatherTestAction(WeatherTestConstants.generateActionType(otherInfo.operationType), {errMsg: response.errMsg + " " + counter}));
+                ++counter
             }
         }), ((error, otherInfo) =>
         {

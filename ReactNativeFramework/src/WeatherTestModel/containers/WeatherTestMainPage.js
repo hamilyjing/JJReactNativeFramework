@@ -22,6 +22,12 @@ var MOCKED_MOVIES_DATA = [
 
 class WeatherTestMainPage extends Component
 {
+    constructor(props) {
+        super(props);
+
+        this.onPress = this.onPress.bind(this);
+    }
+
     render() {
         var movie = MOCKED_MOVIES_DATA[0];
         return (

@@ -23,4 +23,9 @@ export default class WeatherTestRequest extends JJHTTPRequest
     {
         return 'http://apis.baidu.com/showapi_open_bus/weather_showapi/areaid'
     }
+
+    successForBusiness(response)
+    {
+        return true;
+    }
 }

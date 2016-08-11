@@ -15,7 +15,7 @@ RCT_EXPORT_MODULE(JJRNBLog)
 RCT_EXPORT_METHOD(debug:(id)message)
 {
 #ifdef DEBUG
-     NSLog(@"%s line:%d", message, __LINE__)
+  NSLog(@"%@ line:%d", message, __LINE__);
 #endif
 }
 
