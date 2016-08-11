@@ -13,63 +13,10 @@
 
 #import <objc/runtime.h>
 
-@interface AwesomeProject1 : NSObject <RCTBridgeModule>
-
-@end
-
-AwesomeProject1 *ap1 = nil;
-
-@implementation AwesomeProject1
-
-- (void)dealloc
-{
-  NSLog(@"dealloc");
-}
-
-- (instancetype)init
-{
-  NSLog(@"init");
-  self = [super init];
-  return self;
-}
-
-RCT_EXPORT_MODULE()
-
-RCT_EXPORT_METHOD(processString:(NSString *)input callback:(RCTResponseSenderBlock)callback)
-{
-  callback(@[@"Hello"]);
-}
-
-- (NSDictionary *)constantsToExport
-{
-  return @{ @"aaa": @"Monday" };
-}
-
-@end
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  Class moduleClass = [AwesomeProject1 class];
-  unsigned int count;
-  Method *methods = class_copyMethodList(object_getClass(moduleClass), &count);
-  for (int i = 0; i < count; i++)
-  {
-    Method method = methods[i];
-    SEL selector = method_getName(method);
-    NSString *name = NSStringFromSelector(selector);
-    //        if ([name hasPrefix:@"test"])
-    NSLog(@"方法 名字 ==== %@",name);
-    if (name)
-    {
-      //avoid arc warning by using c runtime
-      //            objc_msgSend(self, selector);
-    }
-    
-    //NSLog(@"Test '%@' completed successfuly", [name substringFromIndex:4]);
-  }
-  
   NSURL *jsCodeLocation;
 
   /**
@@ -102,14 +49,11 @@ RCT_EXPORT_METHOD(processString:(NSString *)input callback:(RCTResponseSenderBlo
                                                       moduleName:@"AwesomeProject"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-  rootView.appProperties = @{@"aa": @"aa"};
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
-  UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:[UIViewController new]];
-  [nv pushViewController:rootViewController animated:NO];
-  self.window.rootViewController = nv;
+  self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
 }

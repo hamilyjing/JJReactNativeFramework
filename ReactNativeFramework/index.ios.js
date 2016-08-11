@@ -19,8 +19,6 @@ import React, {
   NativeModules
 } from 'react-native';
 
-import Log from './Log'
-
 var obj = NativeModules.AwesomeProject1
 //var obj1 = NativeModules.AwesomeProject1
 
