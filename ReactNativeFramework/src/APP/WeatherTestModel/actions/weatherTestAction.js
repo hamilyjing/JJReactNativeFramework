@@ -2,7 +2,7 @@
  * Created by JJ on 16/8/11.
  */
 
-import WeatherTestService from '../../Service/WeatherTestService/WeatherTestService'
+import WeatherTestService from '../../../Service/WeatherTestService/WeatherTestService'
 import WeatherTestConstants from '../constants'
 
 export function weatherTestAction(type, obj)
