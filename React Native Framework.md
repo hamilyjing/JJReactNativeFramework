@@ -78,3 +78,9 @@
 	目录结构见如下图：
 
 	![image](https://mmbiz.qlogo.cn/mmbiz/YTAjOycganOZyt4a6eFfYBMibHOkqQEhcibKY1E3kFBkwFeEnxSTgtXQs91H7RIBhwAc2GTcMV6ClyoRt07xDTDg/0?wx_fmt=png)
+	
+-----------------------------------------------------------------------------------
+
+LoveAPP开发订阅号
+
+![image](https://mmbiz.qlogo.cn/mmbiz/YTAjOycganOGG6qPHNdqTN5d5sJ3UiahpSUemVlhbcNfsCkb0YwXt8dClvWcve4J6LGRrjBeZP8iaYqMy6o7k2vg/0?wx_fmt=jpeg)
