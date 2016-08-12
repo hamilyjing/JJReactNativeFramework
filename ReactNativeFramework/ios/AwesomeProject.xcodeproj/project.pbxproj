@@ -21,7 +21,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		28231F461D5C8A4200CA64F1 /* JJRNBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 28231F441D5C8A4200CA64F1 /* JJRNBLog.m */; };
+		2881BEDB1D5D54AD003CAEF2 /* JJRNBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 2881BECC1D5D54AD003CAEF2 /* JJRNBLog.m */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
 
@@ -125,8 +125,8 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = AwesomeProject/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AwesomeProject/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		28231F431D5C8A4200CA64F1 /* JJRNBLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJRNBLog.h; sourceTree = "<group>"; };
-		28231F441D5C8A4200CA64F1 /* JJRNBLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJRNBLog.m; sourceTree = "<group>"; };
+		2881BECB1D5D54AD003CAEF2 /* JJRNBLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJRNBLog.h; sourceTree = "<group>"; };
+		2881BECC1D5D54AD003CAEF2 /* JJRNBLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJRNBLog.m; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -254,28 +254,44 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		28231F3D1D5C8A4200CA64F1 /* JSBridgeLibrary */ = {
+		2881BEC31D5D54A2003CAEF2 /* RN */ = {
 			isa = PBXGroup;
 			children = (
-				28231F411D5C8A4200CA64F1 /* iOS */,
+				2881BEC41D5D54AD003CAEF2 /* CommonLibrary */,
 			);
-			name = JSBridgeLibrary;
-			path = ../src/RNFramework/JSBridgeLibrary;
+			name = RN;
 			sourceTree = "<group>";
 		};
-		28231F411D5C8A4200CA64F1 /* iOS */ = {
+		2881BEC41D5D54AD003CAEF2 /* CommonLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				28231F421D5C8A4200CA64F1 /* Log */,
+				2881BEC51D5D54AD003CAEF2 /* JSBridgeLibrary */,
+			);
+			name = CommonLibrary;
+			path = ../src/CommonLibrary;
+			sourceTree = "<group>";
+		};
+		2881BEC51D5D54AD003CAEF2 /* JSBridgeLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				2881BEC91D5D54AD003CAEF2 /* iOS */,
+			);
+			path = JSBridgeLibrary;
+			sourceTree = "<group>";
+		};
+		2881BEC91D5D54AD003CAEF2 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				2881BECA1D5D54AD003CAEF2 /* Log */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		28231F421D5C8A4200CA64F1 /* Log */ = {
+		2881BECA1D5D54AD003CAEF2 /* Log */ = {
 			isa = PBXGroup;
 			children = (
-				28231F431D5C8A4200CA64F1 /* JJRNBLog.h */,
-				28231F441D5C8A4200CA64F1 /* JJRNBLog.m */,
+				2881BECB1D5D54AD003CAEF2 /* JJRNBLog.h */,
+				2881BECC1D5D54AD003CAEF2 /* JJRNBLog.m */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -316,7 +332,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				28231F3D1D5C8A4200CA64F1 /* JSBridgeLibrary */,
+				2881BEC31D5D54A2003CAEF2 /* RN */,
 				13B07FAE1A68108700A75B9A /* AwesomeProject */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* AwesomeProjectTests */,
@@ -573,7 +589,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				28231F461D5C8A4200CA64F1 /* JJRNBLog.m in Sources */,
+				2881BEDB1D5D54AD003CAEF2 /* JJRNBLog.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

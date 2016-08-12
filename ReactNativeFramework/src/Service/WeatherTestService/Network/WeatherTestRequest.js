@@ -2,7 +2,7 @@
  * Created by JJ on 16/8/11.
  */
 
-import JJHTTPRequest from '../../../RNFramework/JSLibrary/Network/JJHTTPRequest'
+import JJHTTPRequest from '../../../CommonLibrary/JSLibrary/Network/JJHTTPRequest'
 
 export default class WeatherTestRequest extends JJHTTPRequest
 {
