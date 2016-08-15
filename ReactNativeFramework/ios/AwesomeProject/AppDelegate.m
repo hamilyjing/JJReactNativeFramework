@@ -13,6 +13,12 @@
 
 #import <objc/runtime.h>
 
+static inline dispatch_time_t dTimeDelay(NSTimeInterval time)
+{
+  int64_t delta = (int64_t)(NSEC_PER_SEC * time);
+  return dispatch_time(DISPATCH_TIME_NOW, delta);
+}
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -55,6 +61,11 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  dispatch_after(dTimeDelay(5), dispatch_get_main_queue(), ^{
+    ((RCTRootView *)self.window.rootViewController.view).appProperties = @{@"name": @"JJ React Native Framework 2"};
+  });
+  
   return YES;
 }
 
