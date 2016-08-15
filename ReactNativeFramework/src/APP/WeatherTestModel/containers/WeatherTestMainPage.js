@@ -32,6 +32,7 @@ class WeatherTestMainPage extends Component
         var movie = MOCKED_MOVIES_DATA[0];
         return (
             <View style={styles.container}>
+                <Text>{this.props.name}</Text>
                 <Text>{movie.title}</Text>
                 <Text>{this.props.errMsg}</Text>
                 <TouchableHighlight onPress={this.onPress}>

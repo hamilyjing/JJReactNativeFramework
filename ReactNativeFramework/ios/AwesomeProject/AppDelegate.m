@@ -47,7 +47,7 @@
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"WeatherTestApp"
-                                               initialProperties:nil
+                                               initialProperties:@{@"name": @"JJ React Native Framework"}
                                                    launchOptions:launchOptions];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

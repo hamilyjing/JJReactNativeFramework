@@ -16,7 +16,7 @@ export default class WeatherTestApp extends Component {
     render() {
         return (
             <Provider store={store}>
-                <WeatherTestMainPage />
+                <WeatherTestMainPage {...this.props} />
             </Provider>
         );
     }
