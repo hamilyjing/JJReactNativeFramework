@@ -36,7 +36,7 @@ class AA extends ReactContextBaseJavaModule
         Toast.makeText(getReactApplicationContext(), "1234", Toast.LENGTH_LONG).show();
     }
 
-    @ReactMethod void callBack(Callback callback)
+    @ReactMethod void callBack(String text, Callback callback)
     {
         callback.invoke("1234");
     }
