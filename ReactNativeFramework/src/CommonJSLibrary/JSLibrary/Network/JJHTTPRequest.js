@@ -3,16 +3,15 @@
  */
 
 import JJHTTPAgent from './JJHTTPAgent';
-import Store from '../Storage/JJFileCache';
-
+import Store from '../Store/p.store';
+import md5 from 'md5';
 const { Cache } = Store;
-
 export const JJ_REQUEST_METHOD_TYPE_GET = 'get';
 export const JJ_REQUEST_METHOD_TYPE_POST = 'post';
-//export const JJ_REQUEST_METHOD_TYPE_HEAD = 'head';
-//export const JJ_REQUEST_METHOD_TYPE_PUT = 'put';
-//export const JJ_REQUEST_METHOD_TYPE_DELETE = 'delete';
-//export const JJ_REQUEST_METHOD_TYPE_PATCH = 'patch';
+// export const JJ_REQUEST_METHOD_TYPE_HEAD = 'head';
+// export const JJ_REQUEST_METHOD_TYPE_PUT = 'put';
+// export const JJ_REQUEST_METHOD_TYPE_DELETE = 'delete';
+// export const JJ_REQUEST_METHOD_TYPE_PATCH = 'patch';
 
 class JJHTTPRequest
 {
@@ -28,146 +27,127 @@ class JJHTTPRequest
     networkSuccessCallBack;
     networkFailCallBack;
 
-    getBaseUrl()
-    {
+    timeoutInterval = 60 * 1000; // 毫秒
+
+    getBaseUrl() {
         return this.baseUrl;
     }
 
-    getRequestUrl()
-    {
+    getRequestUrl() {
         return this.requestUrl;
     }
 
-    getRequestArgument()
-    {
+    getRequestArgument() {
         return this.requestArgument;
     }
 
-    getRequestMethodType()
-    {
+    getRequestMethodType() {
         return this.requestMethodType;
     }
 
-    getOtherInfo()
-    {
+    getOtherInfo() {
         return this.otherInfo;
     }
 
-    getIsSaveToDisk()
-    {
+    getIsSaveToDisk() {
         return this.isSaveToDisk;
     }
 
-    doBeforeAnyAction()
-    {
-        return Promise.resolve()
+    cancelTimeoutTimer() {
+        this.timer && clearTimeout(this.timer);
     }
 
-    start(networkSuccessCallBack, networkFailCallBack)
-    {
+    doBeforeAnyAction() {
+        return Promise.resolve();
+    }
+
+    start(networkSuccessCallBack, networkFailCallBack) {
         this.networkSuccessCallBack = networkSuccessCallBack;
         this.networkFailCallBack = networkFailCallBack;
 
-        this.doBeforeAnyAction().then(() =>
-        {
+        this.doBeforeAnyAction().then(() => {
             JJHTTPAgent.sharedInstance().start(this);
-        })
+        });
+
+        this.timer = setTimeout(() => {
+            this.stop();
+            this.networkFailCallBack({message: '操作超时'}, this.getOtherInfo());
+        }, this.timeoutInterval);
     }
 
-    stop()
-    {
+    stop() {
+        this.cancelTimeoutTimer();
         JJHTTPAgent.sharedInstance().stop(this);
     }
 
-    filterResponse(response)
-    {
-        return response
+    filterResponse(response) {
+        return response.json();
     }
 
-    requestCompleteFilter(response)
-    {
-        if (!this.getIsSaveToDisk())
-        {
+    requestCompleteFilter(response) {
+        if (!this.getIsSaveToDisk()) {
             return Promise.resolve(response);
         }
 
-        if (!this.successForBusiness(response))
-        {
+        if (!this.successForBusiness(response)) {
             return Promise.resolve(response);
         }
 
-        return new Promise((resolve, reject)=>
-        {
-            this.obtainCache().then((cacheObj) =>
-            {
+        return new Promise((resolve) => {
+            this.obtainCache().then((cacheObj) => {
                 let obj;
-                if (null == cacheObj)
-                {
+                if (cacheObj === null) {
                     this.saveObjectToCache(response);
                     resolve(response);
-                }
-                else
-                {
+                } else {
                     obj = this.operate(response, cacheObj);
                     this.saveObjectToCache(obj);
                     resolve(obj);
                 }
-            })
-        })
+            });
+        });
     }
 
-    requestFailedFilter(error)
-    {
+    requestFailedFilter(error) {
         return Promise.resolve(error);
     }
 
-    successForBusiness(response)
-    {
+    successForBusiness() {
         return false;
     }
 
-    buildRequestUrl()
-    {
+    buildRequestUrl() {
         return this.getBaseUrl() + this.getRequestUrl();
     }
 
-    operate(newObj, oldObj)
-    {
+    operate(newObj) {
         return newObj;
     }
 
     // cache
 
-    getCacheKey()
-    {
+    getCacheKey() {
         let key = this.buildRequestUrl() + JSON.stringify(this.getRequestArgument()) + this.getRequestMethodType();
         key = md5(key);
         return key;
     }
 
-    obtainCache()
-    {
-        return new Promise((resolve, reject)=>
-        {
-            this.doBeforeAnyAction().then(() =>
-            {
+    obtainCache() {
+        return new Promise((resolve) => {
+            this.doBeforeAnyAction().then(() => {
                 resolve(Cache.get(this.getCacheKey()));
             });
         });
     }
 
-    saveObjectToCache(obj)
-    {
-        this.doBeforeAnyAction().then(() =>
-        {
+    saveObjectToCache(obj) {
+        this.doBeforeAnyAction().then(() => {
             Cache.set(this.getCacheKey(), obj);
         });
     }
 
-    removeCache()
-    {
-        this.doBeforeAnyAction().then(() =>
-        {
+    removeCache() {
+        this.doBeforeAnyAction().then(() => {
             Cache.remove(this.getCacheKey());
         });
     }

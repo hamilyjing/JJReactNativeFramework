@@ -2,9 +2,10 @@
  * Created by JJ on 16/7/20.
  */
 
-import JJHTTPRequest, {JJ_REQUEST_METHOD_TYPE_GET, JJ_REQUEST_METHOD_TYPE_POST} from './JJHTTPRequest';
+import { JJ_REQUEST_METHOD_TYPE_GET, JJ_REQUEST_METHOD_TYPE_POST } from './JJHTTPRequest';
 import JJHTTPTool from './JJHTTPTool';
-import JJLog from '../Log/JJLog'
+import JJLog from '../Log/JJLog';
+import { NativeModules, Platform } from 'react-native';
 
 let instance;
 
@@ -14,125 +15,106 @@ class JJHTTPAgent
 {
     requestList = [];
 
-    static sharedInstance()
-    {
-        if ('undefined' === typeof(instance))
-        {
+    static sharedInstance() {
+        if (typeof(instance) === 'undefined') {
             instance = new JJHTTPAgent();
-
-            JJLog.debug(LogName + ' invoke JJHTTPAgent.sharedInstance()');
+            const str = `${LogName} invoke JJHTTPAgent.sharedInstance()`;
+            JJLog.debug(str);
         }
         return instance;
     }
 
-    start(request)
-    {
+    start(request) {
         const url = request.buildRequestUrl();
         const parameter = request.getRequestArgument();
 
-        if (JJ_REQUEST_METHOD_TYPE_POST === request.getRequestMethodType())
-        {
+        if (JJ_REQUEST_METHOD_TYPE_POST === request.getRequestMethodType()) {
             JJHTTPTool.post(url, parameter)
-                .then(response => response.json())
-                .then((responseString) =>
-                {
-                    JJLog.debug(LogName + ' post response success, response string: \n' + JSON.stringify(responseString));
-
-                    this.handleNetworkSuccessRequestResult(request, responseString);
-                }, ((error) =>
-                {
-                    JJLog.debug(LogName + ' post response fail, error: \n' + error);
-
+                .then(response => request.filterResponse(response))
+                .then((response) => {
+                    const str = `${LogName} post response success, response string: \n${JSON.stringify(response)}`;
+                    JJLog.debug(str);
+                    if (Platform.OS === 'ios') {
+                        NativeModules.YZTRNBNetwork.showResponseData({ data: response });
+                    }
+                    this.handleNetworkSuccessRequestResult(request, response);
+                }, ((error) => {
+                    const str = `${LogName} post response fail, error: \n${error}`;
+                    JJLog.debug(str);
                     this.handleNetworkFailRequestResult(request, error);
                 }))
-                .catch((error) =>
-                {
-                    JJLog.debug(LogName + ' post response abnormally, error: \n' + error);
-
+                .catch((error) => {
+                    const str = `${LogName} post response abnormally, error: \n${error}`;
+                    JJLog.debug(str);
                     this.handleNetworkFailRequestResult(request, error);
                 });
-        }
-        else if (JJ_REQUEST_METHOD_TYPE_GET === request.getRequestMethodType())
-        {
+        } else if (JJ_REQUEST_METHOD_TYPE_GET === request.getRequestMethodType()) {
             JJHTTPTool.get(url, parameter)
-                .then(response => response.json())
-                .then((responseString) =>
-                {
-                    JJLog.debug(LogName + ' get response success, response string: \n' + JSON.stringify(responseString));
-
-                    this.handleNetworkSuccessRequestResult(request, responseString);
-                }, ((error) =>
-                {
-                    JJLog.debug(LogName + ' get response fail, error: \n' + error);
-
+                .then(response => request.filterResponse(response))
+                .then((response) => {
+                    const str = `${LogName} get response success, response string: \n${JSON.stringify(response)}`;
+                    JJLog.debug(str);
+                    if (Platform.OS === 'ios') {
+                        NativeModules.YZTRNBNetwork.showResponseData({ data: response });
+                    }
+                    this.handleNetworkSuccessRequestResult(request, response);
+                }, ((error) => {
+                    const str = `${LogName} get response fail, error: \n${error}`;
+                    JJLog.debug(str);
                     this.handleNetworkFailRequestResult(request, error);
                 }))
-                .catch((error) =>
-                {
-                    JJLog.debug(LogName + ' get response abnormally, error: \n' + error);
-
+                .catch((error) => {
+                    const str = `${LogName} get response abnormally, error: \n${error}`;
+                    JJLog.debug(str);
                     this.handleNetworkFailRequestResult(request, error);
                 });
         }
-
         this.addRequest(request);
     }
 
-    stop(request)
-    {
+    stop(request) {
         this.removeRequest(request);
     }
 
-    handleNetworkSuccessRequestResult(request, responseString)
-    {
+    handleNetworkSuccessRequestResult(request, response) {
+        request.cancelTimeoutTimer();
+
         const index = this.requestList.indexOf(request);
-        if (index < 0)
-        {
+        if (index < 0) {
             return;
         }
 
         this.removeRequest(request);
-
-        const filterResponse = request.filterResponse(responseString);
-
-        request.requestCompleteFilter(filterResponse).then((value) =>
-        {
-            request.networkSuccessCallBack(request.successForBusiness(filterResponse), value, request.getOtherInfo());
-        })
+        request.requestCompleteFilter(response).then((value) => {
+            request.networkSuccessCallBack(request.successForBusiness(response), value, request.getOtherInfo());
+        });
     }
 
-    handleNetworkFailRequestResult(request, error)
-    {
+    handleNetworkFailRequestResult(request, error) {
+        request.cancelTimeoutTimer();
+
         const index = this.requestList.indexOf(request);
-        if (index < 0)
-        {
+        if (index < 0) {
             return;
         }
 
         this.removeRequest(request);
-
-        request.requestFailedFilter(error).then((error) =>
-        {
+        request.requestFailedFilter(error).then(() => {
             request.networkFailCallBack(error, request.getOtherInfo());
         });
     }
 
-    addRequest(request)
-    {
+    addRequest(request) {
         const index = this.requestList.indexOf(request);
-        if (index >= 0)
-        {
+        if (index >= 0) {
             return;
         }
-
         this.requestList.push(request);
     }
 
-    removeRequest(request)
-    {
+    removeRequest(request) {
         const index = this.requestList.indexOf(request);
-        if (index >= 0)
-        {
+        if (index >= 0) {
             this.requestList.splice(index, 1);
         }
     }
