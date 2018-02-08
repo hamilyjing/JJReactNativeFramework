@@ -1,4 +1,4 @@
-package com.awesomeproject.JSBridgeLibrary.Android.Log;
+package com.reactnativeframework;
 
 import android.util.Log;
 
