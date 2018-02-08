@@ -6,7 +6,7 @@
 //  Copyright © 2016年 pingan. All rights reserved.
 //
 
-#import "RCTBridge.h"
+#import <React/RCTBridgeModule.h>
 
 @interface JJRNBLog : NSObject <RCTBridgeModule>
 

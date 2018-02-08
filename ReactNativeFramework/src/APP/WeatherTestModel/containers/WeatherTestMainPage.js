@@ -2,10 +2,10 @@
  * Created by JJ on 16/8/11.
  */
 
-import React, {
+import React, { Component } from 'react';
+import {
     AppRegistry,
     Image,
-    Component,
     StyleSheet,
     Text,
     TouchableHighlight,
@@ -20,7 +20,7 @@ var MOCKED_MOVIES_DATA = [
     {title: 'request result', year: 'Press me to get weather', posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}},
 ];
 
-class WeatherTestMainPage extends Component
+class WeatherTestMainPage extends Component<{}>
 {
     constructor(props) {
         super(props);
