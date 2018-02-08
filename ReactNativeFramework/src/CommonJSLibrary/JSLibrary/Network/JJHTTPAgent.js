@@ -34,9 +34,9 @@ class JJHTTPAgent
                 .then((response) => {
                     const str = `${LogName} post response success, response string: \n${JSON.stringify(response)}`;
                     JJLog.debug(str);
-                    if (Platform.OS === 'ios') {
-                        NativeModules.YZTRNBNetwork.showResponseData({ data: response });
-                    }
+                    // if (Platform.OS === 'ios') {
+                    //     NativeModules.YZTRNBNetwork.showResponseData({ data: response });
+                    // }
                     this.handleNetworkSuccessRequestResult(request, response);
                 }, ((error) => {
                     const str = `${LogName} post response fail, error: \n${error}`;
@@ -54,9 +54,9 @@ class JJHTTPAgent
                 .then((response) => {
                     const str = `${LogName} get response success, response string: \n${JSON.stringify(response)}`;
                     JJLog.debug(str);
-                    if (Platform.OS === 'ios') {
-                        NativeModules.YZTRNBNetwork.showResponseData({ data: response });
-                    }
+                    // if (Platform.OS === 'ios') {
+                    //     NativeModules.YZTRNBNetwork.showResponseData({ data: response });
+                    // }
                     this.handleNetworkSuccessRequestResult(request, response);
                 }, ((error) => {
                     const str = `${LogName} get response fail, error: \n${error}`;

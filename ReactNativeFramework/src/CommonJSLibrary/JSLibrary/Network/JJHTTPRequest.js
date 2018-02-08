@@ -3,8 +3,7 @@
  */
 
 import JJHTTPAgent from './JJHTTPAgent';
-import Store from '../Store/p.store';
-import md5 from 'md5';
+import Store from '../Storage/JJFileCache';
 const { Cache } = Store;
 export const JJ_REQUEST_METHOD_TYPE_GET = 'get';
 export const JJ_REQUEST_METHOD_TYPE_POST = 'post';
